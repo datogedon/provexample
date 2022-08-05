@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provexample/pages/form.dart';
+import 'package:provexample/pages/form_provider.dart';
 import 'package:provexample/provider.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +17,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider<TextProvider>(create: (_) => TextProvider()),
+          ChangeNotifierProvider<FromsProvider>(create: (_) => FromsProvider())
         ],
         builder: (context, _) {
           return MaterialApp(
@@ -47,7 +50,14 @@ class HomePage extends StatelessWidget {
           onChanged: (value) {
             context.read<TextProvider>().setTexts(value1: value.toString());
           },
-        )
+        ),
+        const SizedBox(height: 200),
+        ElevatedButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (_) => const DynamicFormPage()));
+            },
+            child: const Text("Formulario dinámico"))
       ]),
     );
   }
